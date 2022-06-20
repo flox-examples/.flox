@@ -14,7 +14,7 @@ jobs:
           access-tokens = github.com=${{ secrets.NIX_GIT_TOKEN }}
     - name: "Update Flake"
       run: |
-        nix flake update
+        nix flake update --show-trace -vv
     - name: "Commit flake.lock file"
       run: |
           if [[ $(git diff --exit-code -- flake.lock) ]]; then
