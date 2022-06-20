@@ -1,9 +1,7 @@
 {
 
   description = "Company root";
-  inputs.capacitor.url = "/Volumes/Projects/Flox/tests/minicapacitor/capacitor";
-
-  # inputs.capacitor.url = "git+ssh://git@github.com/flox/minicapacitor?ref=main&dir=capacitor";
+  inputs.capacitor.url = "git+ssh://git@github.com/flox/minicapacitor?ref=main&dir=capacitor";
   inputs.capacitor.inputs.root.follows = "/";
 
 
