@@ -11,7 +11,7 @@ jobs:
       uses: cachix/install-nix-action@v17
       with:
         extra_nix_config: |
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          access-tokens = github.com=${{ secrets.NIX_GIT_TOKEN }}
     - name: "Update Flake"
       run: |
         nix flake update
