@@ -16,14 +16,15 @@ jobs:
       run: |
         nix flake update
     - name: "Commit flake.lock file"
-      if: "[[ $(git diff --exit-code -- flake.lock) ]]"
       run: |
-          git config --global user.name 'Flox Updater'
-          git config --global user.email 'developers@floxdev.com'
-          git add 
-          git commit -m "flake.lock: automatic update"
-          git push
-    - name: "Commit flake.lock file"
-      if: "[[ ! $(git diff --exit-code -- flake.lock) ]]"
-      run: |
-        echo '::warning file={flake.lock},title={Lockfile Unchanged}::{Index was updated but the lock file did not change.}'
+          if [[ $(git diff --exit-code -- flake.lock) ]]; then
+            git config --global user.name 'Flox Updater'
+            git config --global user.email 'developers@floxdev.com'
+            git add 
+            git commit -m "flake.lock: automatic update"
+            git push
+          else
+            echo '::warning file={flake.lock},title={Lockfile Unchanged}::{Index was updated but the lock file did not change.}'
+          fi
+
+        
