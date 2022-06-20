@@ -20,7 +20,7 @@ jobs:
           if [[ $(git diff --exit-code -- flake.lock) ]]; then
             git config --global user.name 'Flox Updater'
             git config --global user.email 'developers@floxdev.com'
-            git add 
+            git config --global url."https://github.com".insteadOf ssh://git@github.com
             git commit -m "flake.lock: automatic update"
             git push
           else
