@@ -24,6 +24,7 @@ jobs:
     - name: "Commit flake.lock file"
       run: |
           if [[ $(git diff --exit-code -- flake.lock) ]]; then
+            git add flake.lock
             git commit -m "flake.lock: automatic update"
             git push
           else
