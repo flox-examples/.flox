@@ -1,22 +1,18 @@
 {
 
   description = "Company root";
+  inputs.capacitor.url = "/Volumes/Projects/Flox/tests/minicapacitor/capacitor";
 
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/minicapacitor?ref=main&dir=capacitor";
+  # inputs.capacitor.url = "git+ssh://git@github.com/flox/minicapacitor?ref=main&dir=capacitor";
   inputs.capacitor.inputs.root.follows = "/";
 
-  inputs.nixpkgs.url = "path:./nixpkgs";
-  inputs.projects.url = "path:./projects";
-  inputs.projects.inputs.capacitor.follows = "capacitor";
 
-  
-  
-  outputs = { capacitor, ... } @ args: capacitor args ( {lib, auto,...}: 
-    let nixpkgs = auto.callSubflake "nixpkgs" {};
-        projects = auto.callSubflake "projects" {};
-        adopted = auto.callSubflake "adopted" {};
+  inputs.nixpkgs-stable.url = "github:flox/nixpkgs/stable";
+  inputs.nixpkgs-unstable.url = "github:flox/nixpkgs/unstable";
+  inputs.nixpkgs-staging.url = "github:flox/nixpkgs/staging";
 
-    in
-    auto.callPackageWith ./flox.nix { inputs = { inherit nixpkgs projects; }; } {}
-  );
+  inputs.index.url = "github:flox-examples/.index"; 
+  inputs.index.inputs.capacitor.follows = "capacitor";
+
+  outputs = { capacitor, ... } @ args: capacitor args (import ./flox.nix);
 }

@@ -1,17 +1,21 @@
-{ inputs }:
-  
+{ inputs, lib,... }:
 {
   
   ############################################
   #        Company Root Configuration        #
   ############################################
 
-  __reflect.stabilities = inputs.nixpkgs // {
-    default = inputs.nixpkgs.stable;
-  };
   __reflect.systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-  __reflect.projects = inputs.projects;
-  __reflect.adopted = inputs.adopted;
+  __reflect.stabilities = {
+      default = inputs.nixpkgs-stable;
+      stable = inputs.nixpkgs-stable;
+      unstable = inputs.nixpkgs-unstable;
+      staging =  inputs.nixpkgs-staging;
+    };
+
+  __reflect.projects = { inherit (inputs.index) company; };
+  __reflect.adopted =  { };
+
 
   ############################################
   #   Top-Level Re-Exports and Definitions   #
@@ -23,6 +27,11 @@
 
   devShells = {};
 
-  lib = {};
+  lib = {
+    testyou = {...}: lib.trace "you";  
+    testme = {...}: lib.testyou "hello";
+  };
+
+  index = inputs.index;
 
 }
