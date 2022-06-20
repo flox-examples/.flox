@@ -12,15 +12,18 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.NIX_GIT_TOKEN }}
-    - name: "Update Flake"
+    - name: Git Configure
+      run: |
+          git config --global user.name 'Flox Updater'
+          git config --global user.email 'developers@floxdev.com'
+          git config --global url."https://github.com".insteadOf ssh://git@github.com
+
+    - name: Update Flake
       run: |
         nix flake update --show-trace -vv
     - name: "Commit flake.lock file"
       run: |
           if [[ $(git diff --exit-code -- flake.lock) ]]; then
-            git config --global user.name 'Flox Updater'
-            git config --global user.email 'developers@floxdev.com'
-            git config --global url."https://github.com".insteadOf ssh://git@github.com
             git commit -m "flake.lock: automatic update"
             git push
           else
