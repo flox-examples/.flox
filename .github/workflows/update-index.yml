@@ -16,7 +16,7 @@ jobs:
       run: |
           git config --global user.name 'Flox Updater'
           git config --global user.email 'developers@floxdev.com'
-          git config --global url."https://github.com".insteadOf ssh://git@github.com
+          git config --global url."https://${{ secrets.NIX_GIT_TOKEN }}@github.com".insteadOf ssh://git@github.com
 
     - name: Update Flake
       run: |
