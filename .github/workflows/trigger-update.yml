@@ -1,0 +1,14 @@
+on:
+  push:
+    
+jobs:
+  update_inputs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Trigger
+      run: |
+        curl \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/flox-examples/.flox/actions/workflows/update-index.yml/dispatches \
+          -d '{ "ref" : "main" }'
