@@ -1,6 +1,7 @@
 {
 
   description = "Company root";
+  # inputs.capacitor.url = "/Volumes/Projects/Flox/tests/minicapacitor/capacitor";
   inputs.capacitor.url = "git+ssh://git@github.com/flox/minicapacitor?ref=main";
   inputs.capacitor.inputs.root.follows = "/";
 
@@ -11,6 +12,9 @@
 
   inputs.index.url = "github:flox-examples/.index"; 
   inputs.index.inputs.capacitor.follows = "capacitor";
+
+  inputs.floxpkgs.url = "github:flox/floxpkgs-internal/devshells-minicap";
+  inputs.floxpkgs.inputs.capacitor.follows = "capacitor";
 
   outputs = { capacitor, ... } @ args: capacitor args (import ./flox.nix);
 }

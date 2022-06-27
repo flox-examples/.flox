@@ -1,4 +1,4 @@
-{ inputs, lib,... }:
+{ inputs, lib, has, auto,... }:
 {
   
   ############################################
@@ -13,7 +13,11 @@
       staging =  inputs.nixpkgs-staging;
     };
 
-  __reflect.projects = { inherit (inputs.index) company; };
+  __reflect.projects = { 
+      inherit (inputs.index) company; 
+      inherit (inputs) floxpkgs;
+  };
+
   __reflect.adopted =  { };
 
 
@@ -21,7 +25,12 @@
   #   Top-Level Re-Exports and Definitions   #
   ############################################
 
-  packages = {};
+  packages = has.both
+   # == { 
+   #  hello-upstream = {inputs',...}: inputs'.floxpkgs.legacyPackages.hello-upstream;
+   #}
+    (auto.reexport inputs.floxpkgs ["hello-upstream"])
+    {};
 
   apps = {};
 
