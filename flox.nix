@@ -23,6 +23,7 @@
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
+      inputs.capacitor.plugins.nixpkgs
     ];
  
   };
